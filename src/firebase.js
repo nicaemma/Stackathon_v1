@@ -28,8 +28,6 @@ getDocs(collectionRef).then((snapshot) => {
 //signing users up
 // will put this inside event listener?
 
-createUserWithEmailAndPassword(auth);
-
 /*
 Old Firebase???
 From the docs:

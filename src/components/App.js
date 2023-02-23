@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+} from "firebase/auth";
 import { auth } from "../firebase.js";
 // import Signup from "./Signup";
 // import { Container } from "react-bootstrap";
@@ -9,6 +14,17 @@ function App() {
   const [registerPassword, setRegisterPassword] = useState("");
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
+
+  // next two lines ensure that current user stays put when refresh the page
+  // const [loggedInUser, setLoggedInUser] = useState({});
+
+  // onAuthStateChanged(auth, (user) => {
+  //   if (user) {
+  //     setLoggedInUser(user);
+  //   } else {
+  //     setLoggedInUser(null);
+  //   }
+  // });
 
   const register = async () => {
     try {
@@ -23,9 +39,22 @@ function App() {
     }
   };
 
-  const login = async () => {};
+  const login = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(
+        auth,
+        loginEmail,
+        loginPassword
+      );
+      console.log(user);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
 
-  const logout = async () => {};
+  const logout = async () => {
+    await signOut(auth);
+  };
 
   return (
     <div>
@@ -44,7 +73,7 @@ function App() {
           }}
         />
 
-        <button>Sign In</button>
+        <button onClick={login}>Log In</button>
       </div>
       <div>
         <h3>Register User</h3>
@@ -63,6 +92,12 @@ function App() {
 
         <button onClick={register}>Create User</button>
       </div>
+      {/* <div>
+        {loggedInUser === null && <h4> Please Sign In</h4>}
+        {loggedInUser && <h4> You Are Signed In As:{loggedInUser.email}</h4>}
+      </div> */}
+
+      <button onClick={logout}>Sign Out</button>
     </div>
   );
 }
