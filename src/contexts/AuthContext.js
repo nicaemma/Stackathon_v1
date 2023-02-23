@@ -42,7 +42,7 @@ Firebase Context:
     “global” for a tree of React components, such as the current 
     authenticated user, theme, or preferred language. 
 
-Auth Methods:
+Auth Methods: **OLD FIREBASE?
 - Built into auth (authentication instance)
 - createUserWithEmailAndPassword --> will use it in signup component.
 - onAuthStateChanged --> allows us to set current user or set it to null.
