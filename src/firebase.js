@@ -16,3 +16,10 @@ const app = firebase.initializeApp({
 // variable for authentication --> gives us our authentication instance
 export const auth = app.auth();
 export default app;
+
+/*
+From the docs:
+  firebase.auth() can be called with no arguments to access the 
+  default app's Auth service or as firebase.auth(app) to access the 
+  Auth service associated with a specific app.
+*/
