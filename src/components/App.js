@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase.js";
 // import Signup from "./Signup";
 // import { Container } from "react-bootstrap";
 
@@ -11,7 +12,12 @@ function App() {
 
   const register = async () => {
     try {
-      const user = await createUserWithEmailAndPassword();
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        registerEmail,
+        registerPassword
+      );
+      console.log(user);
     } catch (err) {
       console.log(err.message);
     }
@@ -55,7 +61,7 @@ function App() {
           }}
         />
 
-        <button>Create User</button>
+        <button onClick={register}>Create User</button>
       </div>
     </div>
   );

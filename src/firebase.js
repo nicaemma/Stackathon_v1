@@ -3,7 +3,7 @@ import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 
 // init firebase app
-initializeApp({
+const app = initializeApp({
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
   projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
@@ -15,7 +15,7 @@ initializeApp({
 
 // init services --> db connection
 const db = getFirestore();
-const auth = getAuth();
+export const auth = getAuth(app);
 
 // collection ref
 const collectionRef = collection(db, "users");
