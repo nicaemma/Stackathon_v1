@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { getAuth } from "firebase/auth";
 
 // init firebase app
 const app = initializeApp({
@@ -18,18 +18,15 @@ const db = getFirestore();
 export const auth = getAuth(app);
 
 // collection ref
-const collectionRef = collection(db, "users");
+const collectionRef = collection(db, "plants");
 
 // get collection data
 getDocs(collectionRef).then((snapshot) => {
   console.log(snapshot.docs);
 });
 
-//signing users up
-// will put this inside event listener?
-
 /*
-Old Firebase???
+Old Firebase version!!
 From the docs:
   firebase.auth() can be called with no arguments to access the 
   default app's Auth service or as firebase.auth(app) to access the 
