@@ -63,7 +63,7 @@ export function AuthProvider({ children }) {
 }
 
 /*
-Firebase Context:
+Context:
 - For passing down props all the way down into all the children.
 - Everything inside the Provider have everything in the value variable in the Provider
 - A global state for all the children of the Provider.
