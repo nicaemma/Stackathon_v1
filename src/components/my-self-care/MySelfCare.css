@@ -1,0 +1,10 @@
+.MySelfCare {
+  /* width: fit-content;
+      height: fit-content; */
+  background-image: url("/public/images/background/background5.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  /* display: flex; */
+  padding: 20px;
+}

@@ -14,16 +14,18 @@ const app = initializeApp({
 // using env variables here so that it's easy to switch between instances
 
 // init services --> db connection
-const db = getFirestore();
+export const db = getFirestore(app);
+
+// gives access to all firebase auth methods --lookup in docs
 export const auth = getAuth(app);
 
 // collection ref
-const collectionRef = collection(db, "plants");
+export const collectionRef = collection(db, "skills");
 
 // get collection data
-getDocs(collectionRef).then((snapshot) => {
-  console.log(snapshot.docs);
-});
+// getDocs(collectionRef).then((snapshot) => {
+//   console.log(snapshot.docs);
+// });
 
 /*
 Old Firebase version!!

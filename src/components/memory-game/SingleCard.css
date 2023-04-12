@@ -1,0 +1,47 @@
+.card {
+  position: relative;
+}
+
+.card img {
+  width: 100%;
+  display: block;
+  border: 2px solid #fff;
+  border-radius: 6px;
+}
+
+/* 
+- Front card is always 'in front' or 'on top' but it switches rotation to show or not.
+- Default:
+    -- Position absolute is relative to card parent element 
+            -> sits on TOP of the back of card.
+    -- BUT we hide the front by rotating 90 deg, so we see the back.
+- Flipped:
+    -- Rotates back and the back underneath is seen again.
+    -- Time delay
+*/
+.card .front {
+  transform: rotateY(90deg);
+  transition: all ease-in 0.2s;
+  position: absolute;
+}
+
+.flipped .front {
+  transform: rotateY(0deg);
+  transition-delay: 0.2s;
+}
+
+/* 
+Back of card 
+- Back rotates out first, then front rotates in.
+- Vice versa to flip back.
+*/
+
+.card .back {
+  transition: all ease-in 0.2s;
+  transition-delay: 0.2s;
+}
+
+.flipped .back {
+  transform: rotateY(90deg);
+  transition-delay: 0s;
+}

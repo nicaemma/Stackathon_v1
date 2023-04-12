@@ -6,6 +6,10 @@ import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
   signOut,
+  sendPasswordResetEmail,
+  updateEmail,
+  updatePassword,
+  updateProfile,
 } from "firebase/auth";
 
 const AuthContext = React.createContext();
@@ -18,9 +22,10 @@ export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState();
   const [loading, setLoading] = useState(true);
 
-  const signUp = async (email, password) => {
+  const signUp = async (name, email, password) => {
     try {
-      const user = await createUserWithEmailAndPassword(auth, email, password);
+      await createUserWithEmailAndPassword(auth, email, password);
+      const user = await updateProfile(auth.currentUser, { displayName: name });
       console.log(user);
     } catch (err) {
       console.log(err.message);
@@ -28,16 +33,35 @@ export function AuthProvider({ children }) {
   };
 
   const logIn = async (email, password) => {
+    const user = await signInWithEmailAndPassword(auth, email, password);
+    console.log(user);
+  };
+
+  const logOut = async (email, password) => {
+    const user = await signOut(auth, email, password);
+    console.log(user);
+  };
+
+  const resetPassword = async (email) => {
     try {
-      const user = await signInWithEmailAndPassword(auth, email, password);
-      console.log(user);
+      await sendPasswordResetEmail(auth, email);
     } catch (err) {
       console.log(err.message);
     }
   };
 
-  const logOut = async (email, password) => {
-    const user = await signOut(auth, email, password);
+  const editEmail = async (email) => {
+    const user = await updateEmail(auth.currentUser, email);
+    console.log(user);
+  };
+
+  const editPassword = async (password) => {
+    const user = await updatePassword(auth.currentUser, password);
+    console.log(user);
+  };
+
+  const editProfile = async (name) => {
+    const user = await updateProfile(auth.currentUser, { displayName: name });
     console.log(user);
   };
 
@@ -49,11 +73,19 @@ export function AuthProvider({ children }) {
     return unsubscribe;
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("user", JSON.stringify(currentUser));
+  }, [currentUser]);
+
   const userInfo = {
     currentUser,
     signUp,
     logIn,
     logOut,
+    resetPassword,
+    editEmail,
+    editPassword,
+    editProfile,
   };
   return (
     <AuthContext.Provider value={userInfo}>
